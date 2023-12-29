@@ -294,6 +294,6 @@ async def async_ping(address, count=4, interval=1, timeout=2, id=None,
                 rtts.append(rtt)
 
             except ICMPLibError as e:
-                logging.error(exc_info=e)
+                logging.error(msg="async_ping error", exc_info=e)
 
     return Host(address, packets_sent, rtts)
