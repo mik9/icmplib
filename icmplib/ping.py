@@ -33,6 +33,7 @@ from .sockets import ICMPv4Socket, ICMPv6Socket, AsyncSocket
 from .models import ICMPRequest, Host
 from .exceptions import ICMPLibError
 from .utils import *
+import logging
 
 
 def ping(address, count=4, interval=1, timeout=2, id=None, source=None,
@@ -292,7 +293,7 @@ async def async_ping(address, count=4, interval=1, timeout=2, id=None,
                 rtt = (reply.time - request.time) * 1000
                 rtts.append(rtt)
 
-            except ICMPLibError:
-                pass
+            except ICMPLibError as e:
+                logging.error(exc_info=e)
 
     return Host(address, packets_sent, rtts)
